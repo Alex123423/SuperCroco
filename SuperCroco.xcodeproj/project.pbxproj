@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		17EA310329F03A1700A043B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EA310229F03A1700A043B8 /* AppDelegate.swift */; };
 		17EA310529F03A1700A043B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EA310429F03A1700A043B8 /* SceneDelegate.swift */; };
-		17EA310729F03A1700A043B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EA310629F03A1700A043B8 /* ViewController.swift */; };
-		17EA310A29F03A1700A043B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17EA310829F03A1700A043B8 /* Main.storyboard */; };
+		17EA310729F03A1700A043B8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EA310629F03A1700A043B8 /* MainViewController.swift */; };
 		17EA310C29F03A1A00A043B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17EA310B29F03A1A00A043B8 /* Assets.xcassets */; };
 		17EA310F29F03A1A00A043B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17EA310D29F03A1A00A043B8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,8 +18,7 @@
 		17EA30FF29F03A1700A043B8 /* SuperCroco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperCroco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EA310229F03A1700A043B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17EA310429F03A1700A043B8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		17EA310629F03A1700A043B8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		17EA310929F03A1700A043B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		17EA310629F03A1700A043B8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		17EA310B29F03A1A00A043B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17EA310E29F03A1A00A043B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17EA311029F03A1A00A043B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +35,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17D1ACB129F0490F00F68BA1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				17EA310229F03A1700A043B8 /* AppDelegate.swift */,
+				17EA310429F03A1700A043B8 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		17D1ACB229F0493900F68BA1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				17EA310629F03A1700A043B8 /* MainViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		17D1ACB329F04A2E00F68BA1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				17EA310D29F03A1A00A043B8 /* LaunchScreen.storyboard */,
+				17EA310B29F03A1A00A043B8 /* Assets.xcassets */,
+				17EA311029F03A1A00A043B8 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		17EA30F629F03A1700A043B8 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +81,9 @@
 		17EA310129F03A1700A043B8 /* SuperCroco */ = {
 			isa = PBXGroup;
 			children = (
-				17EA310229F03A1700A043B8 /* AppDelegate.swift */,
-				17EA310429F03A1700A043B8 /* SceneDelegate.swift */,
-				17EA310629F03A1700A043B8 /* ViewController.swift */,
-				17EA310829F03A1700A043B8 /* Main.storyboard */,
-				17EA310B29F03A1A00A043B8 /* Assets.xcassets */,
-				17EA310D29F03A1A00A043B8 /* LaunchScreen.storyboard */,
-				17EA311029F03A1A00A043B8 /* Info.plist */,
+				17D1ACB129F0490F00F68BA1 /* Application */,
+				17D1ACB229F0493900F68BA1 /* Controllers */,
+				17D1ACB329F04A2E00F68BA1 /* Resources */,
 			);
 			path = SuperCroco;
 			sourceTree = "<group>";
@@ -127,7 +148,6 @@
 			files = (
 				17EA310F29F03A1A00A043B8 /* LaunchScreen.storyboard in Resources */,
 				17EA310C29F03A1A00A043B8 /* Assets.xcassets in Resources */,
-				17EA310A29F03A1700A043B8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17EA310729F03A1700A043B8 /* ViewController.swift in Sources */,
+				17EA310729F03A1700A043B8 /* MainViewController.swift in Sources */,
 				17EA310329F03A1700A043B8 /* AppDelegate.swift in Sources */,
 				17EA310529F03A1700A043B8 /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +167,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		17EA310829F03A1700A043B8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				17EA310929F03A1700A043B8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		17EA310D29F03A1A00A043B8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,10 +301,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8J2VS5TP5S;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SuperCroco/Info.plist;
+				INFOPLIST_FILE = SuperCroco/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,10 +328,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8J2VS5TP5S;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SuperCroco/Info.plist;
+				INFOPLIST_FILE = SuperCroco/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
