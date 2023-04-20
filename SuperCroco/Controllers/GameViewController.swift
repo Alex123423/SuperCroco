@@ -23,13 +23,16 @@ class GameViewController: UIViewController {
         "Объясняй сексуально"
     ]
     
+    var timer: Timer?
+    var counter = 60
     
+
     let verStack: UIStackView = {
         let subStack = UIStackView()
         subStack.axis = .vertical
         subStack.alignment = .center
         subStack.distribution = .equalSpacing
-        subStack.spacing = 56
+        subStack.spacing = 30
         subStack.translatesAutoresizingMaskIntoConstraints = false
         return subStack
     }()
@@ -61,7 +64,7 @@ class GameViewController: UIViewController {
     let imageBackground: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -81,7 +84,7 @@ class GameViewController: UIViewController {
     
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:59"
+        label.text = "01:00"
         label.font = .systemFont(ofSize: 48)
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +102,6 @@ class GameViewController: UIViewController {
     }()
     
     
-    
     let conditionsLabel: UILabel = {
         let label = UILabel()
         label.text = "объясни с помощью жестов"
@@ -110,14 +112,17 @@ class GameViewController: UIViewController {
     }()
     
     
-    
     lazy var buttonCorrect: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Правильно", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = UIColor(named: "CustomGreen")
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 2, height: 3)
+        button.layer.shadowRadius = 3
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -128,8 +133,12 @@ class GameViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Нарушил правила", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
+        button.backgroundColor = UIColor(named: "CustomRed")
         button.layer.cornerRadius = 15
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 2, height: 3)
+        button.layer.shadowRadius = 3
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -140,27 +149,37 @@ class GameViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Сброс", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .gray
+        button.backgroundColor = UIColor(named: "CustomGray")
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .regular)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 2, height: 3)
+        button.layer.shadowRadius = 3
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        timerStarting()
         setupHierarchy()
         setConstrains()
         
+        
     }
     
     
+
     @objc func buttonTapped(_ sender: UIButton) {
         
     }
+    
+    
+    
     
     
     func setupHierarchy(){
@@ -189,6 +208,12 @@ class GameViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
+            imageBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            imageBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            imageBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            imageBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            
+            
             verStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             verStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
             verStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 116),
@@ -208,8 +233,6 @@ class GameViewController: UIViewController {
             buttonReset.heightAnchor.constraint(equalToConstant: 60),
             
             
-            
-            
             verStackTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             verStackTitle.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
@@ -221,6 +244,18 @@ class GameViewController: UIViewController {
             
         ])
         
+    }
+    
+    func timerStarting(){
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
+            self.counter -= 1
+            self.timerLabel.text = "00:\(String(self.counter))"
+            
+            if self.counter <= 0 {
+                self.timer?.invalidate()
+                
+            }
+        })
         
     }
     

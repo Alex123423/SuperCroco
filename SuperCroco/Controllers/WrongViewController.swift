@@ -6,8 +6,9 @@
 //
 import UIKit
 
-class CorrectViewController: UIViewController {
+class WrongViewController: UIViewController {
     
+
 
     lazy var imageBackground: UIImageView = {
         let image = UIImageView()
@@ -65,7 +66,7 @@ class CorrectViewController: UIViewController {
     
     var pointLabel: UILabel = {
         let label = UILabel()
-        label.text = "1"
+        label.text = "2"
         label.textColor = .black
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 40, weight: .medium)
@@ -99,7 +100,7 @@ class CorrectViewController: UIViewController {
     
     var greenView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "CustomGreen")
+        view.backgroundColor = UIColor(named: "CustomRed")
         view.layer.cornerRadius = 20
        
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +109,7 @@ class CorrectViewController: UIViewController {
     
     var titleMessage: UILabel = {
         let label = UILabel()
-        label.text = "Поздравляем"
+        label.text = "УВЫ И АХ!"
         label.textColor = .black
         label.font = .systemFont(ofSize: 48, weight: .bold)
         label.numberOfLines = 1
@@ -118,32 +119,24 @@ class CorrectViewController: UIViewController {
     
     var youGetLabel: UILabel = {
         let label = UILabel()
-        label.text = "Вы получаете"
+        label.text = "Вы не отгадали слово и не получаете очков!"
         label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     var imageStar: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "star")
+        image.image = UIImage(named: "circle")
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    var imageOnePoint: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "one")
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
+ 
     var imageZeroPoint: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "zero")
@@ -187,6 +180,7 @@ class CorrectViewController: UIViewController {
         button.layer.shadowOpacity = 0.3
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
+        
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -228,7 +222,7 @@ class CorrectViewController: UIViewController {
         view.addSubview(greenView)
         view.addSubview(verStackCentr)
         view.addSubview(buttonNextStep)
-        view.addSubview(imageOnePoint)
+        view.addSubview(imageZeroPoint)
     
         verStackCentr.addArrangedSubview(titleMessage)
         verStackCentr.addArrangedSubview(youGetLabel)
@@ -282,8 +276,8 @@ class CorrectViewController: UIViewController {
             verStackCentr.centerYAnchor.constraint(equalTo: greenView.centerYAnchor),
             
             
-            imageOnePoint.centerXAnchor.constraint(equalTo: greenView.centerXAnchor ),
-            imageOnePoint.centerYAnchor.constraint(equalTo: imageStar.centerYAnchor ),
+            imageZeroPoint.centerXAnchor.constraint(equalTo: greenView.centerXAnchor ),
+            imageZeroPoint.centerYAnchor.constraint(equalTo: imageStar.centerYAnchor ),
             
             
             buttonNextStep.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
