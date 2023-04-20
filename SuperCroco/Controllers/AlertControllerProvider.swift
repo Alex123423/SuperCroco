@@ -20,7 +20,11 @@ class AlertControllerProvider {
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
 		
 		if actions.isEmpty {
-			let yesAction = UIAlertAction(title: "Да", style:.destructive, handler: nil)
+			let yesAction = UIAlertAction(title: "Да", style:.destructive, handler:  {_ in (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
+				viewController: TeamViewController(),
+				animated: true,
+				animationOptions: .transitionFlipFromBottom
+			)})
 			let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
 			alertController.addAction(yesAction)
 			alertController.addAction(cancelAction)
