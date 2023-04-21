@@ -141,12 +141,12 @@ class TeamViewController: UIViewController {
 //        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
 //    }
     
-    @objc func navigationStartButtonPressed() {
-       let viewController = CategoryViewController()
-       if let navigator = navigationController {
-           navigator.pushViewController(viewController, animated: false)
-       }
-   }
+	@objc func navigationStartButtonPressed() {
+		let viewController = CategoryViewController()
+		if let navigator = navigationController {
+			navigator.pushViewController(viewController, animated: false)
+		}
+	}
         
     
     private func setupHierarchy() {

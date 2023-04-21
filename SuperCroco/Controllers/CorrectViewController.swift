@@ -192,7 +192,7 @@ class CorrectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
         
@@ -202,11 +202,9 @@ class CorrectViewController: UIViewController {
     
     //MARK: buttonTapped
     @objc func nextStepButtonTapped(_ sender: UIButton) {
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-            viewController: GameViewController(),
-            animated: false,
-            animationOptions: .allowAnimatedContent
-        )
+		if let navigator = navigationController {
+			navigator.pushViewController(GameViewController(), animated: false)
+		}
     }
 
     //MARK: setupHierarchy
