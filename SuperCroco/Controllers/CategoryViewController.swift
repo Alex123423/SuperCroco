@@ -8,14 +8,6 @@
 import UIKit
 
 final class CategoryViewController: UIViewController {
-    var backgroundImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "background")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        return image
-    }()
     
     lazy var animalButton: UIButton = {
         let button = UIButton()
@@ -126,25 +118,25 @@ final class CategoryViewController: UIViewController {
         super.viewDidLoad()
         setupHierarchy()
         setConstrains()
+        view.setupBackgroundColor()
         title = "Категории"
-        // navigationController?.navigationBar.prefersLargeTitles = true
-        let backButton = UIBarButtonItem(title: "<", style: .plain, target: nil, action: nil)
-        navigationItem.leftBarButtonItem = backButton
+         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     
     @objc func buttonTapped(_ sender: UIButton) {
-        
+        let gameVC = GameViewController()
+        navigationController?.pushViewController(gameVC, animated: true)
     }
+    
     
     @objc func animalButtonTapped(_ sender: UIButton) {
         sender.layer.borderWidth = 5
-        sender.layer.borderColor = UIColor.green.cgColor
+        sender.layer.borderColor = UIColor.systemGreen.cgColor
         
     }
     
     private func setupHierarchy() {
-        view.addSubview(backgroundImage)
         
         view.addSubview(animalButton)
         view.addSubview(animalImageView)
@@ -167,10 +159,6 @@ final class CategoryViewController: UIViewController {
     private func setConstrains() {
         NSLayoutConstraint.activate([
             
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             animalButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
             animalButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
