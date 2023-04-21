@@ -98,7 +98,9 @@ class TeamViewController: UIViewController {
         return button
     }()
     
-
+  
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Кто играет?"
@@ -106,11 +108,12 @@ class TeamViewController: UIViewController {
         view.setupBackgroundColor()
         setupHierarchy()
         setConstrains()
+        randomTeam()
     }
     
     @objc func goToCategoryViewController() {
 //        let categoryVC = CategoryViewController()
-//        navigationController?.pushViewController(categoryVC, animated: true)
+//        navigationController.pushViewController(categoryVC, animated: true)
         let categoryViewController = CategoryViewController()
         let navigationController = UINavigationController(rootViewController: categoryViewController)
         navigationController.modalPresentationStyle = .fullScreen
@@ -121,6 +124,18 @@ class TeamViewController: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
+    
+    //MARK: - Private Methods
+    
+    private func randomTeam () {
+        let teamsDict = Team.getTeams()
+       
+        cowboyLabel.text = teamsDict.firstTeam.name
+        cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)
+        slenderLabel.text = teamsDict.secondTeam.name
+        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
+    }
+        
     
     private func setupHierarchy() {
         
