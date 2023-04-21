@@ -125,11 +125,9 @@ final class CategoryViewController: UIViewController {
     
     
     @objc func startButtonTapped(_ sender: UIButton) {
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-            viewController: GameViewController(),
-            animated: false,
-            animationOptions: .allowAnimatedContent
-        )
+		if let navigator = navigationController {
+			navigator.pushViewController(GameViewController(), animated: false)
+		}
     }
     
     

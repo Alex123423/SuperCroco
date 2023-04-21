@@ -173,6 +173,8 @@ class GameViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		navigationItem.setHidesBackButton(true, animated: true)
         
         timerStarting()
         setupHierarchy()
@@ -182,19 +184,15 @@ class GameViewController: UIViewController {
     }
     
     @objc func correctButtonTapped(_ sender: UIButton) {
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-            viewController: CorrectViewController(),
-            animated: false,
-            animationOptions: .allowAnimatedContent
-        )
+		if let navigator = navigationController {
+			navigator.pushViewController(CorrectViewController(), animated: false)
+		}
     }
     
     @objc func wrongButtonTapped(_ sender: UIButton) {
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-            viewController: WrongViewController(),
-            animated: false,
-            animationOptions: .allowAnimatedContent
-        )
+		if let navigator = navigationController {
+			navigator.pushViewController(WrongViewController(), animated: false)
+		}
     }
     
     @objc func resetButtonTapped(_ sender: UIButton) {
