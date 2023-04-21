@@ -9,8 +9,16 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    
-    let arrayWords = ["автомобиль", "банан", "велосипед", "гитара", "дом", "ежик", "жираф", "зонт", "ишак", "компьютер", "лампа", "медведь", "ноутбук", "облако", "пингвин", "ракета", "солнце", "телефон", "улитка", "фламинго", "холодильник", "цветок", "шарик", "электроника", "юла", "яблоко"]
+    let topicAndWords = [
+        "Животные":
+            ["кошка", "собака", "крокодил", "слон", "тигр", "кенгуру", "пингвин", "обезьяна", "кит", "волк", "жираф", "леопард", "бегемот", "белка", "бобр", "буйвол", "верблюд", "гепард", "выдра", "горилла"],
+        
+        "Еда":
+            ["пицца", "суши", "стейк", "паста", "бургер", "салат", "рыба", "мороженое", "макароны", "суп", "картошка фри", "первое блюдо", "омлет", "киндер-сюрприз", "пирожки", "торт", "шаурма", "хот-дог", "сироп", "сок"],
+        
+        "Личности":
+            ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис", "Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан", "Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
+    ]
     
     
     let arrayConditions = [
@@ -43,7 +51,7 @@ class GameViewController: UIViewController {
         subStack.axis = .vertical
         subStack.alignment = .center
         subStack.distribution = .equalSpacing
-        subStack.spacing = 20
+        subStack.spacing = 8
         subStack.translatesAutoresizingMaskIntoConstraints = false
         return subStack
     }()
@@ -192,12 +200,14 @@ class GameViewController: UIViewController {
     @objc func resetButtonTapped(_ sender: UIButton) {
         //меняется лейбл слова и лейбл способa отгадать слово
         //таймер продолжает отсчет
+        setupHierarchy()
+        setConstrains()
+        conditionsLabel.text = arrayConditions.randomElement()
     }
     
     func setupHierarchy(){
         
         view.addSubview(imageBackground)
-        view.addSubview(wordsLabel)
         view.addSubview(verStackButton)
         view.addSubview(verStackTitle)
         view.addSubview(verStack)
@@ -227,10 +237,21 @@ class GameViewController: UIViewController {
             
             
             verStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            verStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 36),
+            verStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             verStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 116),
             verStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -116),
             
+            verStackTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            verStack.bottomAnchor.constraint(lessThanOrEqualTo: verStackTitle.topAnchor,constant: -10),
+            
+            verStackTitle.bottomAnchor.constraint(greaterThanOrEqualTo: verStackButton.topAnchor,constant: -200),
+            
+            
+            verStackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 54),
+            verStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -54),
+            verStackButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            verStackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             buttonCorrect.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             buttonCorrect.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
@@ -242,17 +263,9 @@ class GameViewController: UIViewController {
             
             buttonCorrect.heightAnchor.constraint(equalToConstant: 60),
             buttonViolation.heightAnchor.constraint(equalToConstant: 60),
-            buttonReset.heightAnchor.constraint(equalToConstant: 60),
+            buttonReset.heightAnchor.constraint(equalToConstant: 60)
             
             
-            verStackTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            verStackTitle.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            
-            verStackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 54),
-            verStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -54),
-            verStackButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
-            verStackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
         ])
         
