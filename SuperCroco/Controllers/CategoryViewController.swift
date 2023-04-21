@@ -8,6 +8,16 @@
 import UIKit
 
 final class CategoryViewController: UIViewController {
+	
+	var mainLabel: UILabel = {
+		let label = UILabel()
+		label.text = "Категории"
+		label.numberOfLines = 1
+		label.textColor = .black
+		label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
     
     lazy var animalButton: UIButton = {
         let button = UIButton()
@@ -119,8 +129,8 @@ final class CategoryViewController: UIViewController {
         setupHierarchy()
         setConstrains()
         view.setupBackgroundColor()
-        title = "Категории"
-         navigationController?.navigationBar.prefersLargeTitles = true
+//        title = "Категории"
+//         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     
@@ -138,6 +148,8 @@ final class CategoryViewController: UIViewController {
     }
     
     private func setupHierarchy() {
+		
+		view.addSubview(mainLabel)
         
         view.addSubview(animalButton)
         view.addSubview(animalImageView)
@@ -159,7 +171,9 @@ final class CategoryViewController: UIViewController {
     //MARK: - Constrains
     private func setConstrains() {
         NSLayoutConstraint.activate([
-            
+			
+			mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             animalButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
             animalButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),

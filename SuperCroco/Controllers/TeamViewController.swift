@@ -11,6 +11,16 @@ import UIKit
 class TeamViewController: UIViewController {
     
     // MARK: - UI elements
+	
+	var mainLabel: UILabel = {
+		let label = UILabel()
+		label.text = "Кто играет?"
+		label.numberOfLines = 1
+		label.textColor = .black
+		label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
     
     lazy var cowboyView: UIView = {
         let view = UIView()
@@ -108,8 +118,8 @@ class TeamViewController: UIViewController {
         let backBarButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backBarButton
         
-        title = "Кто играет?"
-        navigationController?.navigationBar.prefersLargeTitles = true
+		
+//        navigationController?.navigationBar.prefersLargeTitles = true
         view.setupBackgroundColor()
         setupHierarchy()
         setConstrains()
@@ -151,6 +161,7 @@ class TeamViewController: UIViewController {
     
     private func setupHierarchy() {
         
+		view.addSubview(mainLabel)
         view.addSubview(cowboyView)
         view.addSubview(cowboyImageView)
         view.addSubview(cowboyLabel)
@@ -168,6 +179,9 @@ class TeamViewController: UIViewController {
     private func setConstrains() {
         
         NSLayoutConstraint.activate([
+			
+			mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             cowboyView.topAnchor.constraint(equalTo: view.topAnchor, constant: 116),
             cowboyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
