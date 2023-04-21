@@ -93,22 +93,27 @@ class TeamViewController: UIViewController {
         button.backgroundColor = UIColor(named: "CustomGreen")
         button.layer.cornerRadius = 10
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
-        button.addTarget(self, action: #selector(goToCategoryViewController), for: .touchUpInside)
+        button.addTarget(self, action: #selector(navigationStartButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-  
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backButton = UIImage(systemName: "chevron.backward")
+        navigationController?.navigationBar.backIndicatorImage = backButton
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
+        navigationController?.navigationBar.backItem?.title = ""
+        let backBarButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButton
+        
         title = "Кто играет?"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.setupBackgroundColor()
         setupHierarchy()
         setConstrains()
-        randomTeam()
+      //  randomTeam()
     }
     
     @objc func goToCategoryViewController() {
@@ -127,14 +132,21 @@ class TeamViewController: UIViewController {
     
     //MARK: - Private Methods
     
-    private func randomTeam () {
-        let teamsDict = Team.getTeams()
-       
-        cowboyLabel.text = teamsDict.firstTeam.name
-        cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)
-        slenderLabel.text = teamsDict.secondTeam.name
-        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
-    }
+//    private func randomTeam () {
+//        let teamsDict = Team.getTeams()
+//
+//        cowboyLabel.text = teamsDict.firstTeam.name
+//        cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)
+//        slenderLabel.text = teamsDict.secondTeam.name
+//        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
+//    }
+    
+    @objc func navigationStartButtonPressed() {
+       let viewController = CategoryViewController()
+       if let navigator = navigationController {
+           navigator.pushViewController(viewController, animated: false)
+       }
+   }
         
     
     private func setupHierarchy() {

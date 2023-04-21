@@ -123,7 +123,7 @@ class GameViewController: UIViewController {
         button.layer.shadowOpacity = 0.3
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(correctButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -140,6 +140,7 @@ class GameViewController: UIViewController {
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
+        button.addTarget(self, action: #selector(wrongButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -156,10 +157,10 @@ class GameViewController: UIViewController {
         button.layer.shadowOpacity = 0.3
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
+        button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
     
  
     override func viewDidLoad() {
@@ -172,15 +173,26 @@ class GameViewController: UIViewController {
         
     }
     
-    
-
-    @objc func buttonTapped(_ sender: UIButton) {
-        
+    @objc func correctButtonTapped(_ sender: UIButton) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
+            viewController: CorrectViewController(),
+            animated: false,
+            animationOptions: .allowAnimatedContent
+        )
     }
     
+    @objc func wrongButtonTapped(_ sender: UIButton) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
+            viewController: WrongViewController(),
+            animated: false,
+            animationOptions: .allowAnimatedContent
+        )
+    }
     
-    
-    
+    @objc func resetButtonTapped(_ sender: UIButton) {
+        //меняется лейбл слова и лейбл способa отгадать слово
+        //таймер продолжает отсчет
+    }
     
     func setupHierarchy(){
         

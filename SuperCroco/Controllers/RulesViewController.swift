@@ -39,7 +39,7 @@ class RulesViewController: UIViewController {
 	
 	var label: UILabel = {
 		let label = UILabel()
-		label.text = "Правила"
+		label.text = ""
 		label.numberOfLines = 1
 		label.textColor = .black
 		label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -85,13 +85,6 @@ class RulesViewController: UIViewController {
 		return label
 	}()
 	
-	@objc func buttonPressed() {
-		let viewController = MainViewController()
-		if let navigator = navigationController {
-			navigator.pushViewController(viewController, animated: true)
-		}
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -101,6 +94,8 @@ class RulesViewController: UIViewController {
 		navigationController?.navigationBar.backItem?.title = ""
 		let backBarButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 		navigationItem.backBarButtonItem = backBarButton
+        
+        title = ""
 		
 		setupHierarchy()
 		setConstrains()
@@ -125,10 +120,10 @@ class RulesViewController: UIViewController {
 			backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			
-			label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -20),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 1),
 			label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			
-			scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
+			scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
 			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -138,10 +133,10 @@ class RulesViewController: UIViewController {
 			contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
 			contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 			
-			rulesLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
-			rulesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-			rulesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-			rulesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20)
+			rulesLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+			rulesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+			rulesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+			rulesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 			
 		])
 	}

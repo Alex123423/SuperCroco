@@ -187,7 +187,7 @@ class CorrectViewController: UIViewController {
         button.layer.shadowOpacity = 0.3
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(nextStepButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -207,10 +207,12 @@ class CorrectViewController: UIViewController {
     
     
     //MARK: buttonTapped
-    
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        
+    @objc func nextStepButtonTapped(_ sender: UIButton) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
+            viewController: GameViewController(),
+            animated: false,
+            animationOptions: .allowAnimatedContent
+        )
     }
 
     //MARK: setupHierarchy
