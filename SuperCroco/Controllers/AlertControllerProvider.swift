@@ -12,9 +12,9 @@ import UIKit
 class AlertControllerProvider {
 	
 	static let shared = AlertControllerProvider()
-	
-	init() {}
-	
+    
+    init() {}
+    
 	func showAlert(on viewController: UIViewController, title: String?, message: String?, preferredStyle: UIAlertController.Style = .alert, actions: [UIAlertAction] = [], completion: (() -> Void)? = nil) {
 		
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
@@ -23,7 +23,7 @@ class AlertControllerProvider {
 			let yesAction = UIAlertAction(title: "Да", style:.destructive, handler:  {_ in (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
 				viewController: TeamViewController(),
 				animated: true,
-				animationOptions: .transitionFlipFromBottom
+                animationOptions: .allowAnimatedContent
 			)})
 			let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
 			alertController.addAction(yesAction)
@@ -36,4 +36,6 @@ class AlertControllerProvider {
 		
 		viewController.present(alertController, animated: true, completion: completion)
 	}
+
 }
+

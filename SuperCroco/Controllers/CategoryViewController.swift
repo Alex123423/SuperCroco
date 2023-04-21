@@ -108,7 +108,7 @@ final class CategoryViewController: UIViewController {
         button.backgroundColor = UIColor(named: "CustomGreen")
         button.layer.cornerRadius = 10
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -124,9 +124,12 @@ final class CategoryViewController: UIViewController {
     }
     
     
-    @objc func buttonTapped(_ sender: UIButton) {
-        let gameVC = GameViewController()
-        navigationController?.pushViewController(gameVC, animated: true)
+    @objc func startButtonTapped(_ sender: UIButton) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
+            viewController: GameViewController(),
+            animated: false,
+            animationOptions: .allowAnimatedContent
+        )
     }
     
     
