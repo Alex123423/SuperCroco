@@ -138,20 +138,14 @@ class CorrectViewController: UIViewController {
     var imageOnePoint: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "one")
-        image.contentMode = .scaleAspectFit
+        
+        image.contentMode = .left
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    var imageZeroPoint: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "zero")
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
+
     
     var titleUnderStart: UILabel = {
         let label = UILabel()
@@ -284,8 +278,9 @@ class CorrectViewController: UIViewController {
             verStackCentr.centerYAnchor.constraint(equalTo: greenView.centerYAnchor),
             
             
-            imageOnePoint.centerXAnchor.constraint(equalTo: greenView.centerXAnchor ),
+            imageOnePoint.centerXAnchor.constraint(equalTo: view.centerXAnchor ),
             imageOnePoint.centerYAnchor.constraint(equalTo: imageStar.centerYAnchor ),
+            imageOnePoint.widthAnchor.constraint(equalToConstant: 30),
             
             
             buttonNextStep.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
@@ -295,7 +290,6 @@ class CorrectViewController: UIViewController {
             buttonNextStep.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -46)
             
         ])
-        
         
     }
 
