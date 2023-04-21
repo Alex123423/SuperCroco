@@ -12,15 +12,6 @@ class TeamViewController: UIViewController {
     
     // MARK: - UI elements
     
-    var backgroundImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "background")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        return image
-    }()
-    
     lazy var cowboyView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -112,17 +103,19 @@ class TeamViewController: UIViewController {
         super.viewDidLoad()
         title = "Кто играет?"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+        view.setupBackgroundColor()
         setupHierarchy()
         setConstrains()
     }
     
     @objc func goToCategoryViewController() {
-           let categoryViewController = CategoryViewController()
-           let navigationController = UINavigationController(rootViewController: categoryViewController)
-           navigationController.modalPresentationStyle = .fullScreen
-           present(navigationController, animated: true, completion: nil)
-       }
+//        let categoryVC = CategoryViewController()
+//        navigationController?.pushViewController(categoryVC, animated: true)
+        let categoryViewController = CategoryViewController()
+        let navigationController = UINavigationController(rootViewController: categoryViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true, completion: nil)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -130,7 +123,6 @@ class TeamViewController: UIViewController {
     }
     
     private func setupHierarchy() {
-        view.addSubview(backgroundImage)
         
         view.addSubview(cowboyView)
         view.addSubview(cowboyImageView)
@@ -149,12 +141,6 @@ class TeamViewController: UIViewController {
     private func setConstrains() {
         
         NSLayoutConstraint.activate([
-            
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
             
             cowboyView.topAnchor.constraint(equalTo: view.topAnchor, constant: 116),
             cowboyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
