@@ -151,9 +151,18 @@ class CategoryViewController: UIViewController {
     
     
     @objc func startButtonTapped(_ sender: UIButton) {
-		if let navigator = navigationController {
-			navigator.pushViewController(GameViewController(), animated: false)
-		}
+        showAlert()
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(
+            title: "Категория не выбрана",
+            message: "Выберите одну из категорий чтобы начать игру",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel, handler: { event in
+            // Делаем что-то, когда пользователь нажмет на кнопку "Хорошо"
+    }))
+        self.present(alert, animated: true)
     }
     
     
