@@ -118,17 +118,13 @@ class TeamViewController: UIViewController {
         let backBarButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backBarButton
         
-		
-//        navigationController?.navigationBar.prefersLargeTitles = true
         view.setupBackgroundColor()
         setupHierarchy()
         setConstrains()
-      //  randomTeam()
+        randomTeam()
     }
     
     @objc func goToCategoryViewController() {
-//        let categoryVC = CategoryViewController()
-//        navigationController.pushViewController(categoryVC, animated: true)
         let categoryViewController = CategoryViewController()
         let navigationController = UINavigationController(rootViewController: categoryViewController)
         navigationController.modalPresentationStyle = .fullScreen
@@ -142,14 +138,16 @@ class TeamViewController: UIViewController {
     
     //MARK: - Private Methods
     
-//    private func randomTeam () {
-//        let teamsDict = Team.getTeams()
-//
-//        cowboyLabel.text = teamsDict.firstTeam.name
-//        cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)
-//        slenderLabel.text = teamsDict.secondTeam.name
-//        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
-//    }
+    private func randomTeam () {
+        let teamsDict = Team.getTeams()
+
+        cowboyLabel.text = teamsDict.firstTeam.name
+        cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)
+        slenderLabel.text = teamsDict.secondTeam.name
+        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
+        
+        
+    }
     
 	@objc func navigationStartButtonPressed() {
 		let viewController = CategoryViewController()

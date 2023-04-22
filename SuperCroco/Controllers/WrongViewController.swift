@@ -8,8 +8,7 @@ import UIKit
 
 class WrongViewController: UIViewController {
     
-
-
+    
     lazy var imageBackground: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")
@@ -202,7 +201,7 @@ class WrongViewController: UIViewController {
     //MARK: buttonTapped
     @objc func nextStepButtonTapped(_ sender: UIButton) {
 		if let navigator = navigationController {
-			navigator.pushViewController(GameResultViewController(), animated: false)
+			navigator.pushViewController(GameViewController(), animated: false)
 		}
     }
 

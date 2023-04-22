@@ -9,16 +9,31 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    let topicAndWords = [
-        "Животные":
-            ["кошка", "собака", "крокодил", "слон", "тигр", "кенгуру", "пингвин", "обезьяна", "кит", "волк", "жираф", "леопард", "бегемот", "белка", "бобр", "буйвол", "верблюд", "гепард", "выдра", "горилла"],
-        
-        "Еда":
-            ["пицца", "суши", "стейк", "паста", "бургер", "салат", "рыба", "мороженое", "макароны", "суп", "картошка фри", "первое блюдо", "омлет", "киндер-сюрприз", "пирожки", "торт", "шаурма", "хот-дог", "сироп", "сок"],
-        
-        "Личности":
-            ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис", "Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан", "Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
-    ]
+    var vc =  CategoryViewController()
+    var randomWord = "sdf"
+    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
+//    let topicAndWords = [
+//        "Животные":
+//            ["кошка", "собака", "крокодил", "слон", "тигр", "кенгуру", "пингвин", "обезьяна", "кит", "волк", "жираф", "леопард", "бегемот", "белка", "бобр", "буйвол", "верблюд", "гепард", "выдра", "горилла"],
+//
+//        "Еда":
+//            ["пицца", "суши", "стейк", "паста", "бургер", "салат", "рыба", "мороженое", "макароны", "суп", "картошка фри", "первое блюдо", "омлет", "киндер-сюрприз", "пирожки", "торт", "шаурма", "хот-дог", "сироп", "сок"],
+//
+//        "Личности":
+//            ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис", "Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан", "Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
+//    ]
+    
+    let hobbieArray = ["Походы", "Кулинария", "Живопись", "Медитация", "Чтение", "Бег", "Йога", "Медитация", "Видеоигры", "Садоводство", "Вязание", "Плавание", "Сон", "Прогулки", "Стендап", "Фотография", "Оригами", "Паркур", "Гребля", "Стрельба"]
+    
+    let foodArray = ["Пицца", "Суши", "Стейк", "Паста", "Бургер", "Салат", "Рыба", "Мороженое", "Макароны", "Суп", "Картошка фри", "Первое блюдо", "Омлет", "Киндер-сюрприз", "Пирожок", "Торт", "Шаурма", "Хот-дог", "Сироп", "Сок"]
+    
+    let personsArray = ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис","Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан","Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
+    
+    let animalsArray = ["Кошка", "Собака", "Крокодил", "Слон", "Тигр", "Кенгуру", "Пингвин", "Обезьяна", "Кит", "Волк", "Жираф", "Леопард", "Бегемот", "Белка", "Бобёр", "Буйвол", "Верблюд", "Гепард", "Выдра", "Горилла"]
     
     
     let arrayConditions = [
@@ -33,7 +48,6 @@ class GameViewController: UIViewController {
     
     var timer: Timer?
     var counter = 60
-    
 
     let verStack: UIStackView = {
         let subStack = UIStackView()
@@ -66,7 +80,6 @@ class GameViewController: UIViewController {
         subStack.translatesAutoresizingMaskIntoConstraints = false
         return subStack
     }()
-    
     
     
     let imageBackground: UIImageView = {
@@ -183,6 +196,18 @@ class GameViewController: UIViewController {
         
     }
     
+    func randomWordCho() {
+        randomWord = animalsArray.randomElement()!
+    }
+    
+    func choosingCategory() {
+        var category = vc.selectedCategory
+        if category == "Животные" {
+            let randomWord = animalsArray.randomElement()
+        }
+        print(randomWord)
+    }
+    
     @objc func correctButtonTapped(_ sender: UIButton) {
 		if let navigator = navigationController {
 			navigator.pushViewController(CorrectViewController(), animated: false)
@@ -196,11 +221,9 @@ class GameViewController: UIViewController {
     }
     
     @objc func resetButtonTapped(_ sender: UIButton) {
-        //меняется лейбл слова и лейбл способa отгадать слово
-        //таймер продолжает отсчет
-        setupHierarchy()
-        setConstrains()
-        conditionsLabel.text = arrayConditions.randomElement()
+        if let navigator = navigationController {
+            navigator.pushViewController(MainViewController(), animated: false)
+        }
     }
     
     func setupHierarchy(){
@@ -219,7 +242,6 @@ class GameViewController: UIViewController {
         verStackButton.addArrangedSubview(buttonCorrect)
         verStackButton.addArrangedSubview(buttonViolation)
         verStackButton.addArrangedSubview(buttonReset)
-        
         
     }
     
@@ -271,12 +293,13 @@ class GameViewController: UIViewController {
     
     func timerStarting(){
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-            self.counter -= 1
-            self.timerLabel.text = "00:\(String(self.counter))"
-            
-            if self.counter <= 0 {
-                self.timer?.invalidate()
+                self.counter -= 1
                 
+                self.timerLabel.text = "00:\(String(format: "%02d", self.counter))"
+ 
+                if self.counter <= 0 {
+                    self.timer?.invalidate()
+                    
             }
         })
         
