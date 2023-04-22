@@ -11,6 +11,16 @@ import UIKit
 class TeamViewController: UIViewController {
     
     // MARK: - UI elements
+	
+	var mainLabel: UILabel = {
+		let label = UILabel()
+		label.text = "Кто играет?"
+		label.numberOfLines = 1
+		label.textColor = .black
+		label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
     
     lazy var cowboyView: UIView = {
         let view = UIView()
@@ -103,12 +113,20 @@ class TeamViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Кто играет?"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let backButton = UIImage(systemName: "chevron.backward")
+        navigationController?.navigationBar.backIndicatorImage = backButton
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButton
+        navigationController?.navigationBar.backItem?.title = ""
+        let backBarButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButton
+        
+		
+//        navigationController?.navigationBar.prefersLargeTitles = true
         view.setupBackgroundColor()
         setupHierarchy()
         setConstrains()
-        randomTeam()
+      //  randomTeam()
     }
     
     @objc func goToCategoryViewController() {
@@ -149,6 +167,9 @@ class TeamViewController: UIViewController {
     private func setConstrains() {
         
         NSLayoutConstraint.activate([
+			
+			mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             cowboyView.topAnchor.constraint(equalTo: view.topAnchor, constant: 116),
             cowboyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),

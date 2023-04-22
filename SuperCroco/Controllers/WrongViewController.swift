@@ -181,7 +181,7 @@ class WrongViewController: UIViewController {
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
         
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(nextStepButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -191,20 +191,19 @@ class WrongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+	
+		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
-        
         
     }
     
     
     //MARK: buttonTapped
-    
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        
+    @objc func nextStepButtonTapped(_ sender: UIButton) {
+		if let navigator = navigationController {
+			navigator.pushViewController(GameResultViewController(), animated: false)
+		}
     }
 
     //MARK: setupHierarchy

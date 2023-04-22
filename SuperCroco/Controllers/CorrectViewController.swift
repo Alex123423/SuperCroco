@@ -138,20 +138,14 @@ class CorrectViewController: UIViewController {
     var imageOnePoint: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "one")
-        image.contentMode = .scaleAspectFit
+        
+        image.contentMode = .left
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    var imageZeroPoint: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "zero")
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
+
     
     var titleUnderStart: UILabel = {
         let label = UILabel()
@@ -187,7 +181,7 @@ class CorrectViewController: UIViewController {
         button.layer.shadowOpacity = 0.3
         button.layer.shadowOffset = CGSize(width: 2, height: 3)
         button.layer.shadowRadius = 3
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(nextStepButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -198,7 +192,7 @@ class CorrectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
         
@@ -207,10 +201,10 @@ class CorrectViewController: UIViewController {
     
     
     //MARK: buttonTapped
-    
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        
+    @objc func nextStepButtonTapped(_ sender: UIButton) {
+		if let navigator = navigationController {
+			navigator.pushViewController(GameViewController(), animated: false)
+		}
     }
 
     //MARK: setupHierarchy
@@ -282,8 +276,9 @@ class CorrectViewController: UIViewController {
             verStackCentr.centerYAnchor.constraint(equalTo: greenView.centerYAnchor),
             
             
-            imageOnePoint.centerXAnchor.constraint(equalTo: greenView.centerXAnchor ),
+            imageOnePoint.centerXAnchor.constraint(equalTo: view.centerXAnchor ),
             imageOnePoint.centerYAnchor.constraint(equalTo: imageStar.centerYAnchor ),
+            imageOnePoint.widthAnchor.constraint(equalToConstant: 30),
             
             
             buttonNextStep.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
@@ -293,7 +288,6 @@ class CorrectViewController: UIViewController {
             buttonNextStep.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -46)
             
         ])
-        
         
     }
 

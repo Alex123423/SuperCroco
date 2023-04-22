@@ -12,19 +12,20 @@ import UIKit
 class AlertControllerProvider {
 	
 	static let shared = AlertControllerProvider()
-	
-	init() {}
-	
-	func showAlert(on viewController: UIViewController, title: String?, message: String?, preferredStyle: UIAlertController.Style = .alert, actions: [UIAlertAction] = [], completion: (() -> Void)? = nil) {
+    
+    
+	func showAlert(on viewController: UIViewController, title: String?, message: String?, preferredStyle: UIAlertController.Style = .alert, actions: [UIAlertAction] = [], completion: (() -> Void)? = nil, navigationController: UINavigationController? = nil) {
 		
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
 		
 		if actions.isEmpty {
-			let yesAction = UIAlertAction(title: "Да", style:.destructive, handler:  {_ in (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-				viewController: TeamViewController(),
-				animated: true,
-				animationOptions: .transitionFlipFromBottom
-			)})
+			let yesAction = UIAlertAction(title: "Да", style:.destructive, handler:  {_ in
+				let teamController = navigationController?.viewControllers.filter({$0 is TeamViewController}).first
+				if let navigator = navigationController {
+					navigator.popToViewController(teamController!, animated: false)
+				}
+				
+			})
 			let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
 			alertController.addAction(yesAction)
 			alertController.addAction(cancelAction)
@@ -36,4 +37,6 @@ class AlertControllerProvider {
 		
 		viewController.present(alertController, animated: true, completion: completion)
 	}
+
 }
+

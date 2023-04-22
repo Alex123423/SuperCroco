@@ -45,7 +45,8 @@ class MainViewController: UIViewController {
         button.backgroundColor = UIColor(named: "CustomGreen")
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 20.0, weight: .medium)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(navigationStartButtonPressed), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -57,8 +58,8 @@ class MainViewController: UIViewController {
         button.backgroundColor = UIColor(named: "CustomGreen")
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
-        //button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(navigationRulesButtonPressed), for: .touchUpInside)
+       // button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -88,29 +89,19 @@ class MainViewController: UIViewController {
         setConstrains()
     }
     
-    @objc func buttonPressed() {
-       let viewController = RulesViewController()
+    @objc func navigationStartButtonPressed() {
+       let viewController = TeamViewController()
        if let navigator = navigationController {
            navigator.pushViewController(viewController, animated: false)
        }
    }
     
-    @objc func buttonTapped(_ sender: UIButton) {
-        if sender == startButton {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-                   viewController: GameResultViewController(),
-                   animated: false,
-                   animationOptions: .allowAnimatedContent
-           )
-        }
-        if sender == rulesButton {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeViewController(
-                   viewController: RulesViewController(),
-                   animated: false,
-                   animationOptions: .allowAnimatedContent
-           )
-        }
-    }
+    @objc func navigationRulesButtonPressed() {
+       let viewController = RulesViewController()
+       if let navigator = navigationController {
+           navigator.pushViewController(viewController, animated: false)
+       }
+   }
     
     func setupHierarchy() {
         view.addSubview(backgroundImage)

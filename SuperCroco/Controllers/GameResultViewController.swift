@@ -225,14 +225,14 @@ class GameResultViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		navigationItem.setHidesBackButton(true, animated: true)
 		
 		setupHierarchy()
 		setConstrains()
 	}
 	
 	@objc func buttonTapped(_ sender: UIButton) {
-		AlertControllerProvider.shared.showAlert(on: self, title: "Сбросить игру?", message: "Вы хотите сбросить вашу игру и вернуться в главное меню?")
-
+		AlertControllerProvider.shared.showAlert(on: self, title: "Сбросить игру?", message: "Вы хотите сбросить вашу игру и вернуться в главное меню?", navigationController: navigationController)
 	}
 	
 	func setupHierarchy() {
