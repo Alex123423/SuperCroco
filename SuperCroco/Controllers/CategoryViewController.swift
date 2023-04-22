@@ -151,7 +151,13 @@ class CategoryViewController: UIViewController {
     
     
     @objc func startButtonTapped(_ sender: UIButton) {
-        showAlert()
+        if selectedCategory == "" {
+            showAlert()
+        } else {
+            if let navigator = navigationController {
+                navigator.pushViewController(GameViewController(), animated: false)
+            }
+        }
     }
     
     func showAlert() {
