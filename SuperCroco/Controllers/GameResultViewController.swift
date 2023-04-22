@@ -217,7 +217,7 @@ class GameResultViewController: UIViewController {
 		button.backgroundColor = UIColor(named: "CustomGreen")
 		button.layer.cornerRadius = 10
 		button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
-		button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		return button
 	}()

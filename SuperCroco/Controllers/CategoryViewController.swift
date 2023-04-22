@@ -145,8 +145,38 @@ class CategoryViewController: UIViewController {
                 button.isSelected = false
                 button.layer.borderWidth = 0
             }
-        }
-        print(selectedCategory)
+//            if selectedCategory == "Животные" {
+//                array = animalsArray
+//
+//                for item in array {
+//                    print(item)
+//                }
+//            }
+//            if selectedCategory == "Еда" {
+//                array = foodArray
+//
+//                for item in array {
+//                    print(item)
+//                }
+//            }
+//            if selectedCategory == "Личности" {
+//                array = personsArray
+//
+//                for item in array {
+//                    print(item)
+//                }
+//            }
+//            if selectedCategory == "Хобби" {
+//                array = hobbieArray
+//
+//                for item in array {
+//                    print(item)
+//                }
+//            }
+//
+//
+       }
+//        print(selectedCategory)
     }
     
     
@@ -158,21 +188,20 @@ class CategoryViewController: UIViewController {
                 navigator.pushViewController(GameViewController(), animated: false)
             }
         }
+        
+        func showAlert() {
+            let alert = UIAlertController(
+                title: "Категория не выбрана",
+                message: "Выберите одну из категорий чтобы начать игру",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel, handler: { event in
+                // Делаем что-то, когда пользователь нажмет на кнопку "Хорошо"
+            }))
+            self.present(alert, animated: true)
+        }
     }
     
-    func showAlert() {
-        let alert = UIAlertController(
-            title: "Категория не выбрана",
-            message: "Выберите одну из категорий чтобы начать игру",
-            preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel, handler: { event in
-            // Делаем что-то, когда пользователь нажмет на кнопку "Хорошо"
-    }))
-        self.present(alert, animated: true)
-    }
-    
-    
-    private func setupHierarchy() {
+     private func setupHierarchy() {
 		
 		view.addSubview(mainLabel)
         

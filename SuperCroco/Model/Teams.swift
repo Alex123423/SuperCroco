@@ -27,9 +27,6 @@ struct Team {
              secondTeam = shuffledTeams.randomElement()!
          }
          
-         let randomElement1 = firstTeam
-         let randomElement2 = secondTeam
-         
          return (firstTeam, secondTeam)
      }
  }

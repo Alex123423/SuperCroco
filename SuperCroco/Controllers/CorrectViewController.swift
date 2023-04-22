@@ -195,7 +195,6 @@ class CorrectViewController: UIViewController {
         setupHierarchy()
         setConstrains()
         
-        
     }
     
     

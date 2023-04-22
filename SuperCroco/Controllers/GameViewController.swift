@@ -9,24 +9,6 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    var vc =  CategoryViewController()
-    var randomWord = "sdf"
-    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-//    let topicAndWords = [
-//        "Животные":
-//            ["кошка", "собака", "крокодил", "слон", "тигр", "кенгуру", "пингвин", "обезьяна", "кит", "волк", "жираф", "леопард", "бегемот", "белка", "бобр", "буйвол", "верблюд", "гепард", "выдра", "горилла"],
-//
-//        "Еда":
-//            ["пицца", "суши", "стейк", "паста", "бургер", "салат", "рыба", "мороженое", "макароны", "суп", "картошка фри", "первое блюдо", "омлет", "киндер-сюрприз", "пирожки", "торт", "шаурма", "хот-дог", "сироп", "сок"],
-//
-//        "Личности":
-//            ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис", "Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан", "Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
-//    ]
-    
     let hobbieArray = ["Походы", "Кулинария", "Живопись", "Медитация", "Чтение", "Бег", "Йога", "Медитация", "Видеоигры", "Садоводство", "Вязание", "Плавание", "Сон", "Прогулки", "Стендап", "Фотография", "Оригами", "Паркур", "Гребля", "Стрельба"]
     
     let foodArray = ["Пицца", "Суши", "Стейк", "Паста", "Бургер", "Салат", "Рыба", "Мороженое", "Макароны", "Суп", "Картошка фри", "Первое блюдо", "Омлет", "Киндер-сюрприз", "Пирожок", "Торт", "Шаурма", "Хот-дог", "Сироп", "Сок"]
@@ -34,7 +16,6 @@ class GameViewController: UIViewController {
     let personsArray = ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис","Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан","Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
     
     let animalsArray = ["Кошка", "Собака", "Крокодил", "Слон", "Тигр", "Кенгуру", "Пингвин", "Обезьяна", "Кит", "Волк", "Жираф", "Леопард", "Бегемот", "Белка", "Бобёр", "Буйвол", "Верблюд", "Гепард", "Выдра", "Горилла"]
-    
     
     let arrayConditions = [
         "Объясни с помощью слов",
@@ -92,7 +73,6 @@ class GameViewController: UIViewController {
     }()
     
     
-    
     let imageLitleCrocodile: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "littleCroc")
@@ -115,7 +95,6 @@ class GameViewController: UIViewController {
     
     let wordsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Картошка"
         label.font = .systemFont(ofSize: 48)
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +104,6 @@ class GameViewController: UIViewController {
     
     let conditionsLabel: UILabel = {
         let label = UILabel()
-        label.text = "объясни с помощью жестов"
         label.font = .systemFont(ofSize: 20)
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -193,19 +171,9 @@ class GameViewController: UIViewController {
         setupHierarchy()
         setConstrains()
         
+        wordsLabel.text = animalsArray.randomElement()
+        conditionsLabel.text = arrayConditions.randomElement()
         
-    }
-    
-    func randomWordCho() {
-        randomWord = animalsArray.randomElement()!
-    }
-    
-    func choosingCategory() {
-        var category = vc.selectedCategory
-        if category == "Животные" {
-            let randomWord = animalsArray.randomElement()
-        }
-        print(randomWord)
     }
     
     @objc func correctButtonTapped(_ sender: UIButton) {
