@@ -196,7 +196,6 @@ class CorrectViewController: UIViewController {
         setConstrains()
         pointLabel.text = "\(Scores.score)"
         
-        
     }
     
     
