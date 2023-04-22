@@ -9,6 +9,7 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+  
     
     let topicAndWords = [
         "Животные":
@@ -38,8 +39,6 @@ class GameViewController: UIViewController {
     
     var timer: Timer?
     var counter = 60
-    var score:Int = 0
-    var buttonTapsCount = 0
     
     let verStack: UIStackView = {
         let subStack = UIStackView()
@@ -191,18 +190,15 @@ class GameViewController: UIViewController {
     }
     
     @objc func correctButtonTapped(_ sender: UIButton) {
+    
+        Scores.buttonTapsCount += 1
         
-        buttonTapsCount += 1
-        
-        if buttonTapsCount == 10 {
+        if Scores.buttonTapsCount == 10 {
             navigationController?.pushViewController(GameResultViewController(), animated: true)
         } else {
-            let resultVC = CorrectViewController()
-            score += 1
-            resultVC.score = score
-            resultVC.buttonTapsCount = buttonTapsCount
+            Scores.score += 1
             if let navigator = navigationController {
-                navigator.pushViewController(resultVC, animated: false)
+                navigator.pushViewController(CorrectViewController(), animated: false)
             }
         }
         
@@ -212,16 +208,13 @@ class GameViewController: UIViewController {
     
     @objc func wrongButtonTapped(_ sender: UIButton) {
         
-        buttonTapsCount += 1
+        Scores.buttonTapsCount += 1
         
-        if buttonTapsCount == 10 {
+        if Scores.buttonTapsCount == 10 {
             navigationController?.pushViewController(GameResultViewController(), animated: true)
         } else {
-            let wrongVC = WrongViewController()
-            wrongVC.score = score
-            wrongVC.buttonTapsCount = buttonTapsCount
             if let navigator = navigationController {
-                navigator.pushViewController(wrongVC, animated: false)
+                navigator.pushViewController(WrongViewController(), animated: false)
             }
             
         }
@@ -232,6 +225,8 @@ class GameViewController: UIViewController {
     @objc func resetButtonTapped(_ sender: UIButton) {
         if let navigator = navigationController {
             navigator.pushViewController(MainViewController(), animated: false)
+            Scores.score = 0
+            Scores.buttonTapsCount = 0
         }
         
     }
