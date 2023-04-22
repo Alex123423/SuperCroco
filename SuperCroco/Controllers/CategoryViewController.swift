@@ -120,27 +120,36 @@ final class CategoryViewController: UIViewController {
         setConstrains()
         view.setupBackgroundColor()
         title = "Категории"
-         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     
     @objc func buttonTapped(_ sender: UIButton) {
-        let gameVC = GameViewController()
-        navigationController?.pushViewController(gameVC, animated: true)
+        if animalButton.layer.borderColor == UIColor.systemGreen.cgColor
+        || personButton.layer.borderColor == UIColor.systemGreen.cgColor
+        || hobbyButton.layer.borderColor == UIColor.systemGreen.cgColor
+        || foodButton.layer.borderColor == UIColor.systemGreen.cgColor {
+            let gameVC = GameViewController()
+            navigationController?.pushViewController(gameVC, animated: true)
+            
+        } else {
+            AlertControllerProvider.shared.showAlert(on: self, title: "Выберете категорию!", message: "Вы хотите сбросить вашу игру и вернуться в главное меню?")
+        }
     }
     
-    
     @objc func animalButtonTapped(_ sender: UIButton) {
-        sender.layer.borderWidth = 5
-        sender.layer.borderColor = UIColor.systemGreen.cgColor
-        
+        if sender.layer.borderColor == UIColor.systemGreen.cgColor {
+            sender.layer.borderColor = UIColor.clear.cgColor
+        } else {
+            sender.layer.borderWidth = 5
+            sender.layer.borderColor = UIColor.systemGreen.cgColor
+        }
     }
     
     private func setupHierarchy() {
         
         view.addSubview(animalButton)
         view.addSubview(animalImageView)
-        
         
         view.addSubview(foodButton)
         view.addSubview(foodImageView)

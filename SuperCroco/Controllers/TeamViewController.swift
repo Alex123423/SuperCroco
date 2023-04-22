@@ -98,7 +98,7 @@ class TeamViewController: UIViewController {
         return button
     }()
     
-  
+    let teamsDict = Team.getTeams()
     
     
     override func viewDidLoad() {
@@ -112,23 +112,16 @@ class TeamViewController: UIViewController {
     }
     
     @objc func goToCategoryViewController() {
-//        let categoryVC = CategoryViewController()
-//        navigationController.pushViewController(categoryVC, animated: true)
+
         let categoryViewController = CategoryViewController()
         let navigationController = UINavigationController(rootViewController: categoryViewController)
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    
     //MARK: - Private Methods
     
     private func randomTeam () {
-        let teamsDict = Team.getTeams()
        
         cowboyLabel.text = teamsDict.firstTeam.name
         cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)

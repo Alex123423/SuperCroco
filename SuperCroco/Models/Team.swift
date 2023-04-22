@@ -29,3 +29,11 @@ struct Team {
         return (firstTeam, secondTeam)
     }
 }
+enum Category: String {
+    case animal = "Животные"
+    case person = "Личности"
+    case food = "Еда"
+    case hobby = "Хобби"
+}
+
+
