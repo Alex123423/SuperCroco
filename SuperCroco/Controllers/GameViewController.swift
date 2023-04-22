@@ -192,6 +192,7 @@ class GameViewController: UIViewController {
         timerStarting()
         setupHierarchy()
         setConstrains()
+        conditionsLabel.text = arrayConditions.randomElement()
         
         
     }
@@ -209,21 +210,42 @@ class GameViewController: UIViewController {
     }
     
     @objc func correctButtonTapped(_ sender: UIButton) {
-		if let navigator = navigationController {
-			navigator.pushViewController(CorrectViewController(), animated: false)
-		}
+        
+        Scores.buttonTapsCount += 1
+        
+        if Scores.buttonTapsCount == 10 {
+            navigationController?.pushViewController(GameResultViewController(), animated: true)
+        } else {
+            Scores.score += 1
+            if let navigator = navigationController {
+                navigator.pushViewController(CorrectViewController(), animated: false)
+            }
+        }
+        
     }
     
     @objc func wrongButtonTapped(_ sender: UIButton) {
-		if let navigator = navigationController {
-			navigator.pushViewController(WrongViewController(), animated: false)
-		}
+        
+        Scores.buttonTapsCount += 1
+        
+        if Scores.buttonTapsCount == 10 {
+            navigationController?.pushViewController(GameResultViewController(), animated: true)
+        } else {
+            if let navigator = navigationController {
+                navigator.pushViewController(WrongViewController(), animated: false)
+            }
+            
+        }
+        
     }
     
     @objc func resetButtonTapped(_ sender: UIButton) {
         if let navigator = navigationController {
             navigator.pushViewController(MainViewController(), animated: false)
+            Scores.score = 0
+            Scores.buttonTapsCount = 0
         }
+        
     }
     
     func setupHierarchy(){

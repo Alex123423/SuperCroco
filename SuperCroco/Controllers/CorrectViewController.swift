@@ -194,6 +194,7 @@ class CorrectViewController: UIViewController {
 		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
+        pointLabel.text = "\(Scores.score)"
         
         
     }
