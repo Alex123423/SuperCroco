@@ -233,6 +233,9 @@ class GameResultViewController: UIViewController {
 	
 	@objc func buttonTapped(_ sender: UIButton) {
 		AlertControllerProvider.shared.showAlert(on: self, title: "Сбросить игру?", message: "Вы хотите сбросить вашу игру и вернуться в главное меню?", navigationController: navigationController)
+        Scores.buttonTapsCount = 0
+        Scores.score = 0
+        
 	}
 	
 	func setupHierarchy() {

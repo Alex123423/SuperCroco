@@ -194,6 +194,7 @@ class CorrectViewController: UIViewController {
 		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
+        pointLabel.text = "\(Scores.score)"
         
         
     }
@@ -246,7 +247,7 @@ class CorrectViewController: UIViewController {
             
             
             whiteView.heightAnchor.constraint(equalToConstant: 96),
-            whiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 30),
+            whiteView.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: -20),
             whiteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             whiteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             
@@ -267,6 +268,9 @@ class CorrectViewController: UIViewController {
             
             greenView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             greenView.heightAnchor.constraint(equalToConstant: 351),
+           
+            greenView.topAnchor.constraint(lessThanOrEqualTo: whiteView.bottomAnchor,constant: 80 ),
+           
             greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
 
