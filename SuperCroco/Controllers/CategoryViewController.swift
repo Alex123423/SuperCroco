@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class CategoryViewController: UIViewController {
+class CategoryViewController: UIViewController {
+    
+    var selectedCategory = ""
 	
 	var mainLabel: UILabel = {
 		let label = UILabel()
@@ -26,7 +28,7 @@ final class CategoryViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.backgroundColor = UIColor(named: "CustomPurple")
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(animalButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 0
@@ -49,7 +51,7 @@ final class CategoryViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.backgroundColor = UIColor(named: "CustomYellow")
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(animalButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 0
@@ -72,7 +74,7 @@ final class CategoryViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.backgroundColor = UIColor(named: "CustomBlue")
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(animalButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 0
@@ -95,7 +97,7 @@ final class CategoryViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.backgroundColor = UIColor(named: "CustomRed")
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(animalButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 0
@@ -129,8 +131,22 @@ final class CategoryViewController: UIViewController {
         setupHierarchy()
         setConstrains()
         view.setupBackgroundColor()
-//        title = "Категории"
-//         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    @objc func buttonTapped(_ sender: UIButton) {
+        for button in [animalButton, foodButton, personButton, hobbyButton] {
+            if button == sender {
+                button.isSelected = true
+                button.layer.borderWidth = 5
+                button.layer.borderColor = UIColor.systemGreen.cgColor
+                selectedCategory = button.titleLabel!.text!
+            } else {
+                // Deselect all other buttons
+                button.isSelected = false
+                button.layer.borderWidth = 0
+            }
+        }
+        print(selectedCategory)
     }
     
     
@@ -140,12 +156,6 @@ final class CategoryViewController: UIViewController {
 		}
     }
     
-    
-    @objc func animalButtonTapped(_ sender: UIButton) {
-        sender.layer.borderWidth = 5
-        sender.layer.borderColor = UIColor.systemGreen.cgColor
-        
-    }
     
     private func setupHierarchy() {
 		

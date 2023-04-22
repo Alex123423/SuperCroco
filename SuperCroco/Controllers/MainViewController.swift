@@ -9,7 +9,6 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    //UI elements
     let backgroundImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")
@@ -46,7 +45,6 @@ class MainViewController: UIViewController {
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 20.0, weight: .medium)
         button.addTarget(self, action: #selector(navigationStartButtonPressed), for: .touchUpInside)
-        //button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -59,7 +57,6 @@ class MainViewController: UIViewController {
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .medium)
         button.addTarget(self, action: #selector(navigationRulesButtonPressed), for: .touchUpInside)
-       // button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -82,9 +79,12 @@ class MainViewController: UIViewController {
         return image
     }()
     
-    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.setHidesBackButton(true, animated: true)
+        
         setupHierarchy()
         setConstrains()
     }
@@ -144,5 +144,4 @@ class MainViewController: UIViewController {
             grassImage2.widthAnchor.constraint(equalToConstant: 95)
         ])
     }
-    
 }

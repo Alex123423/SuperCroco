@@ -8,7 +8,6 @@ import UIKit
 
 class CorrectViewController: UIViewController {
     
-
     lazy var imageBackground: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")

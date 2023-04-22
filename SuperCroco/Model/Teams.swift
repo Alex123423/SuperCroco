@@ -13,8 +13,7 @@ struct Team {
 
      static func getTeams() -> (firstTeam: Team, secondTeam: Team) {
          let teams = [
-             Team(name: "Стройняшки", avatar: "food"),
-             Team(name: "Ковбои", avatar: "persons"),
+             Team(name: "Стройняшки", avatar: "hobbie"),
              Team(name: "Толстяки", avatar: "food"),
              Team(name: "Панки", avatar: "persons"),
              Team(name: "Звезды", avatar: "star")
@@ -27,7 +26,10 @@ struct Team {
          while firstTeam.name == secondTeam.name {
              secondTeam = shuffledTeams.randomElement()!
          }
-
+         
+         let randomElement1 = firstTeam
+         let randomElement2 = secondTeam
+         
          return (firstTeam, secondTeam)
      }
  }
