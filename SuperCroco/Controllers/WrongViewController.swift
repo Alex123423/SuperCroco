@@ -8,7 +8,8 @@ import UIKit
 
 class WrongViewController: UIViewController {
     
-
+    var score = 0
+    var buttonTapsCount = 0
 
     lazy var imageBackground: UIImageView = {
         let image = UIImageView()
@@ -195,14 +196,17 @@ class WrongViewController: UIViewController {
 		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
-        
+        pointLabel.text = "\(score)"
     }
     
     
     //MARK: buttonTapped
     @objc func nextStepButtonTapped(_ sender: UIButton) {
+        let gameVC = GameViewController()
+        gameVC.score = score
+        gameVC.buttonTapsCount = buttonTapsCount
 		if let navigator = navigationController {
-			navigator.pushViewController(GameResultViewController(), animated: false)
+			navigator.pushViewController(gameVC, animated: false)
 		}
     }
 

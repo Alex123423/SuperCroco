@@ -9,6 +9,7 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    
     let topicAndWords = [
         "Животные":
             ["кошка", "собака", "крокодил", "слон", "тигр", "кенгуру", "пингвин", "обезьяна", "кит", "волк", "жираф", "леопард", "бегемот", "белка", "бобр", "буйвол", "верблюд", "гепард", "выдра", "горилла"],
@@ -21,7 +22,7 @@ class GameViewController: UIViewController {
         
         "Хобби":
             ["фотография", "вязание", "вышивание", "шитье", "рисование", "садоводство", "путешествия", "готовка", "спорт", "музыка", "танцы", "театр", "кино", "литература", "писательство", "программирование", "игры настольные", "игры видео", "фитнес", "ювелирное дело"]
-
+        
     ]
     
     
@@ -37,8 +38,9 @@ class GameViewController: UIViewController {
     
     var timer: Timer?
     var counter = 60
+    var score:Int = 0
+    var buttonTapsCount = 0
     
-
     let verStack: UIStackView = {
         let subStack = UIStackView()
         subStack.axis = .vertical
@@ -174,37 +176,64 @@ class GameViewController: UIViewController {
         return button
     }()
     
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		navigationItem.setHidesBackButton(true, animated: true)
+        
+        navigationItem.setHidesBackButton(true, animated: true)
         
         timerStarting()
         setupHierarchy()
         setConstrains()
+        conditionsLabel.text = arrayConditions.randomElement()
         
         
     }
     
     @objc func correctButtonTapped(_ sender: UIButton) {
-		if let navigator = navigationController {
-			navigator.pushViewController(CorrectViewController(), animated: false)
-		}
+        
+        buttonTapsCount += 1
+        
+        if buttonTapsCount == 10 {
+            navigationController?.pushViewController(GameResultViewController(), animated: true)
+        } else {
+            let resultVC = CorrectViewController()
+            score += 1
+            resultVC.score = score
+            resultVC.buttonTapsCount = buttonTapsCount
+            if let navigator = navigationController {
+                navigator.pushViewController(resultVC, animated: false)
+            }
+        }
+        
     }
+
+    
     
     @objc func wrongButtonTapped(_ sender: UIButton) {
-		if let navigator = navigationController {
-			navigator.pushViewController(WrongViewController(), animated: false)
-		}
+        
+        buttonTapsCount += 1
+        
+        if buttonTapsCount == 10 {
+            navigationController?.pushViewController(GameResultViewController(), animated: true)
+        } else {
+            let wrongVC = WrongViewController()
+            wrongVC.score = score
+            wrongVC.buttonTapsCount = buttonTapsCount
+            if let navigator = navigationController {
+                navigator.pushViewController(wrongVC, animated: false)
+            }
+            
+        }
+        
     }
     
+    
     @objc func resetButtonTapped(_ sender: UIButton) {
-        //меняется лейбл слова и лейбл способa отгадать слово
-        //таймер продолжает отсчет
-        setupHierarchy()
-        setConstrains()
-        conditionsLabel.text = arrayConditions.randomElement()
+        if let navigator = navigationController {
+            navigator.pushViewController(MainViewController(), animated: false)
+        }
+        
     }
     
     func setupHierarchy(){
@@ -286,9 +315,8 @@ class GameViewController: UIViewController {
         
     }
     
+    
+    
+    
 }
-
-
-
-
 
