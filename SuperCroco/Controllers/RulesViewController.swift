@@ -120,10 +120,10 @@ class RulesViewController: UIViewController {
 			backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 1),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
 			label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			
-			scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
+			scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 50),
 			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

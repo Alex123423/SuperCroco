@@ -8,6 +8,9 @@ import UIKit
 
 class CorrectViewController: UIViewController {
     
+    var teams: (firstTeam: Team, secondTeam: Team)?
+    var isFirstTeam = false
+    
     lazy var imageBackground: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")
@@ -194,15 +197,30 @@ class CorrectViewController: UIViewController {
 		navigationItem.setHidesBackButton(true, animated: true)
         setupHierarchy()
         setConstrains()
-        pointLabel.text = "\(Scores.score)"
+        setTeamData()
         
+    }
+    
+    func setTeamData() {
+        guard let teams = teams else { return }
+        if isFirstTeam {
+            personTeamLabel.text = teams.firstTeam.name
+            teamLogo.image = UIImage(named: (teams.firstTeam.avatar))
+            pointLabel.text = "\(teams.firstTeam.score)"
+            nextStepLabel.text = "Следующий ход - \(teams.secondTeam.name)"
+        } else {
+            personTeamLabel.text = teams.secondTeam.name
+            teamLogo.image = UIImage(named: (teams.secondTeam.avatar))
+            pointLabel.text = "\(teams.secondTeam.score)"
+            nextStepLabel.text = "Следующий ход - \(teams.firstTeam.name)"
+        }
     }
     
     
     //MARK: buttonTapped
     @objc func nextStepButtonTapped(_ sender: UIButton) {
 		if let navigator = navigationController {
-			navigator.pushViewController(GameViewController(), animated: false)
+			navigator.popViewController(animated: false)
 		}
     }
 
@@ -292,6 +310,5 @@ class CorrectViewController: UIViewController {
         ])
         
     }
-
     
 }

@@ -10,6 +10,8 @@ import UIKit
 class CategoryViewController: UIViewController {
     
     var selectedCategory = ""
+    var teams: (firstTeam: Team, secondTeam: Team)?
+    var array: [String] = []
 	
 	var mainLabel: UILabel = {
 		let label = UILabel()
@@ -131,6 +133,7 @@ class CategoryViewController: UIViewController {
         setupHierarchy()
         setConstrains()
         view.setupBackgroundColor()
+        print(teams!)
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
@@ -145,38 +148,19 @@ class CategoryViewController: UIViewController {
                 button.isSelected = false
                 button.layer.borderWidth = 0
             }
-//            if selectedCategory == "Животные" {
-//                array = animalsArray
-//
-//                for item in array {
-//                    print(item)
-//                }
-//            }
-//            if selectedCategory == "Еда" {
-//                array = foodArray
-//
-//                for item in array {
-//                    print(item)
-//                }
-//            }
-//            if selectedCategory == "Личности" {
-//                array = personsArray
-//
-//                for item in array {
-//                    print(item)
-//                }
-//            }
-//            if selectedCategory == "Хобби" {
-//                array = hobbieArray
-//
-//                for item in array {
-//                    print(item)
-//                }
-//            }
-//
-//
+            if selectedCategory == "Животные" {
+                array = Categories().animalsArray
+            }
+            if selectedCategory == "Еда" {
+                array = Categories().foodArray
+            }
+            if selectedCategory == "Личности" {
+                array = Categories().personsArray
+            }
+            if selectedCategory == "Хобби" {
+                array = Categories().hobbieArray
+            }
        }
-//        print(selectedCategory)
     }
     
     
@@ -184,9 +168,14 @@ class CategoryViewController: UIViewController {
         if selectedCategory == "" {
             showAlert()
         } else {
+            let gameVC = GameViewController()
+            gameVC.teams = teams
+            gameVC.array = array
             if let navigator = navigationController {
-                navigator.pushViewController(GameViewController(), animated: false)
+                navigator.pushViewController(gameVC, animated: false)
             }
+            
+            
         }
         
         func showAlert() {

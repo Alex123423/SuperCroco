@@ -9,13 +9,10 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    let hobbieArray = ["Походы", "Кулинария", "Живопись", "Медитация", "Чтение", "Бег", "Йога", "Медитация", "Видеоигры", "Садоводство", "Вязание", "Плавание", "Сон", "Прогулки", "Стендап", "Фотография", "Оригами", "Паркур", "Гребля", "Стрельба"]
-    
-    let foodArray = ["Пицца", "Суши", "Стейк", "Паста", "Бургер", "Салат", "Рыба", "Мороженое", "Макароны", "Суп", "Картошка фри", "Первое блюдо", "Омлет", "Киндер-сюрприз", "Пирожок", "Торт", "Шаурма", "Хот-дог", "Сироп", "Сок"]
-    
-    let personsArray = ["Человек-паук", "Гарри Поттер", "Дэдпул", "Халк", "Лара Крофт", "Том Круз", "Джонни Депп", "Криштиану Роналду", "Месси", "Леонардо Ди Каприо", "Брюс Уиллис","Скарлетт Йоханссон", "Дженнифер Энистон", "Джеки Чан","Жан-Клод Вандамм", "Мерлин Монро", "Одри Хепберн", "Кэрри Брэдшоу", "Том Харди", "Джон Сноу"]
-    
-    let animalsArray = ["Кошка", "Собака", "Крокодил", "Слон", "Тигр", "Кенгуру", "Пингвин", "Обезьяна", "Кит", "Волк", "Жираф", "Леопард", "Бегемот", "Белка", "Бобёр", "Буйвол", "Верблюд", "Гепард", "Выдра", "Горилла"]
+    var teams: (firstTeam: Team, secondTeam: Team)?
+    var array: [String] = []
+    var isFirstTeam = false
+    var buttonTapsCount = 0
     
     let arrayConditions = [
         "Объясни с помощью слов",
@@ -86,7 +83,7 @@ class GameViewController: UIViewController {
     let timerLabel: UILabel = {
         let label = UILabel()
         label.text = "01:00"
-        label.font = .systemFont(ofSize: 48)
+        label.font = .systemFont(ofSize: 44)
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -95,7 +92,7 @@ class GameViewController: UIViewController {
     
     let wordsLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 48)
+        label.font = .systemFont(ofSize: 38)
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -170,50 +167,74 @@ class GameViewController: UIViewController {
         timerStarting()
         setupHierarchy()
         setConstrains()
+        
+        wordsLabel.text = array.randomElement()
         conditionsLabel.text = arrayConditions.randomElement()
         
-        wordsLabel.text = animalsArray.randomElement()
-        conditionsLabel.text = arrayConditions.randomElement()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        wordsLabel.text = array.randomElement()
+        conditionsLabel.text = arrayConditions.randomElement()
+        counter = 60
+        timerLabel.text = "01:00"
     }
     
     @objc func correctButtonTapped(_ sender: UIButton) {
+        isFirstTeam.toggle()
         
-        Scores.buttonTapsCount += 1
-        
-        if Scores.buttonTapsCount == 10 {
-            navigationController?.pushViewController(GameResultViewController(), animated: true)
+        if buttonTapsCount == 3 {
+            if isFirstTeam {
+                teams?.firstTeam.score += 1
+            } else {
+                teams?.secondTeam.score += 1
+            }
+            let gameResultVC = GameResultViewController()
+            gameResultVC.teams = teams
+            navigationController?.pushViewController(gameResultVC, animated: true)
         } else {
-            Scores.score += 1
+            buttonTapsCount += 1
+            if isFirstTeam {
+                teams?.firstTeam.score += 1
+            } else {
+                teams?.secondTeam.score += 1
+            }
             if let navigator = navigationController {
-                navigator.pushViewController(CorrectViewController(), animated: false)
+                let correctVC = CorrectViewController()
+                counter = 60
+                correctVC.teams = teams
+                correctVC.isFirstTeam = isFirstTeam
+                navigator.pushViewController(correctVC, animated: false)
             }
         }
-        
     }
     
     @objc func wrongButtonTapped(_ sender: UIButton) {
+        isFirstTeam.toggle()
         
-        Scores.buttonTapsCount += 1
-        
-        if Scores.buttonTapsCount == 10 {
-            navigationController?.pushViewController(GameResultViewController(), animated: true)
+        if buttonTapsCount == 3 {
+            let gameResultVC = GameResultViewController()
+            gameResultVC.teams = teams
+            navigationController?.pushViewController(gameResultVC, animated: true)
         } else {
+            buttonTapsCount += 1
             if let navigator = navigationController {
-                navigator.pushViewController(WrongViewController(), animated: false)
+                let wrongVC = WrongViewController()
+                counter = 60
+                wrongVC.teams = teams
+                wrongVC.isFirstTeam = isFirstTeam
+                navigator.pushViewController(wrongVC, animated: false)
             }
-            
         }
-        
     }
     
     @objc func resetButtonTapped(_ sender: UIButton) {
+        
         if let navigator = navigationController {
             navigator.pushViewController(MainViewController(), animated: false)
-            Scores.score = 0
-            Scores.buttonTapsCount = 0
         }
-        
     }
     
     func setupHierarchy(){
@@ -232,9 +253,7 @@ class GameViewController: UIViewController {
         verStackButton.addArrangedSubview(buttonCorrect)
         verStackButton.addArrangedSubview(buttonViolation)
         verStackButton.addArrangedSubview(buttonReset)
-        
     }
-    
     
     func setConstrains(){
         
@@ -244,7 +263,6 @@ class GameViewController: UIViewController {
             imageBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             imageBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             imageBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            
             
             verStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             verStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -256,7 +274,6 @@ class GameViewController: UIViewController {
             verStack.bottomAnchor.constraint(lessThanOrEqualTo: verStackTitle.topAnchor,constant: -10),
             
             verStackTitle.bottomAnchor.constraint(greaterThanOrEqualTo: verStackButton.topAnchor,constant: -200),
-            
             
             verStackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 54),
             verStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -54),
@@ -270,31 +287,22 @@ class GameViewController: UIViewController {
             buttonReset.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             buttonReset.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             
-            
             buttonCorrect.heightAnchor.constraint(equalToConstant: 60),
             buttonViolation.heightAnchor.constraint(equalToConstant: 60),
             buttonReset.heightAnchor.constraint(equalToConstant: 60)
-            
-            
-            
         ])
-        
     }
     
     func timerStarting(){
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
                 self.counter -= 1
-                
                 self.timerLabel.text = "00:\(String(format: "%02d", self.counter))"
  
                 if self.counter <= 0 {
                     self.timer?.invalidate()
-                    
             }
         })
-        
     }
-    
 }
 
 

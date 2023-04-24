@@ -10,6 +10,7 @@ import UIKit
 
 class TeamViewController: UIViewController {
     
+    let teams = Team.getTeams()
     // MARK: - UI elements
 	
 	var mainLabel: UILabel = {
@@ -30,7 +31,7 @@ class TeamViewController: UIViewController {
         return view
     }()
     
-    lazy var cowboyImageView: UIImageView = {
+    lazy var firstTeamImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "persons")
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +40,7 @@ class TeamViewController: UIViewController {
         return imageView
     }()
     
-    var cowboyLabel: UILabel = {
+    var firstTeamLabel: UILabel = {
         let label = UILabel()
         label.text = "Ковбои"
         label.numberOfLines = 1
@@ -67,7 +68,7 @@ class TeamViewController: UIViewController {
         return view
     }()
     
-    lazy var slenderImageView: UIImageView = {
+    lazy var secondImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "food")
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +77,7 @@ class TeamViewController: UIViewController {
         return imageView
     }()
     
-    var slenderLabel: UILabel = {
+    var secondTeamLabel: UILabel = {
         let label = UILabel()
         label.text = "Cтройняшки"
         label.numberOfLines = 1
@@ -131,26 +132,19 @@ class TeamViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    
     //MARK: - Private Methods
     
     private func randomTeam () {
-        let teamsDict = Team.getTeams()
 
-        cowboyLabel.text = teamsDict.firstTeam.name
-        cowboyImageView.image = UIImage(named: teamsDict.firstTeam.avatar)
-        slenderLabel.text = teamsDict.secondTeam.name
-        slenderImageView.image = UIImage(named: teamsDict.secondTeam.avatar)
-        
-        
+        firstTeamLabel.text = teams.firstTeam.name
+        firstTeamImageView.image = UIImage(named: teams.firstTeam.avatar)
+        secondTeamLabel.text = teams.secondTeam.name
+        secondImageView.image = UIImage(named: teams.secondTeam.avatar)
     }
     
 	@objc func navigationStartButtonPressed() {
 		let viewController = CategoryViewController()
+        viewController.teams = teams
 		if let navigator = navigationController {
 			navigator.pushViewController(viewController, animated: false)
 		}
@@ -161,13 +155,13 @@ class TeamViewController: UIViewController {
         
 		view.addSubview(mainLabel)
         view.addSubview(cowboyView)
-        view.addSubview(cowboyImageView)
-        view.addSubview(cowboyLabel)
+        view.addSubview(firstTeamImageView)
+        view.addSubview(firstTeamLabel)
         view.addSubview(cowboyStack)
         
         view.addSubview(slenderView)
-        view.addSubview(slenderImageView)
-        view.addSubview(slenderLabel)
+        view.addSubview(secondImageView)
+        view.addSubview(secondTeamLabel)
         view.addSubview(slenderStack)
         
         view.addSubview(gamerReadyButton)
@@ -186,13 +180,13 @@ class TeamViewController: UIViewController {
             cowboyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             cowboyView.heightAnchor.constraint(equalToConstant: 96),
             
-            cowboyImageView.centerYAnchor.constraint(equalTo: cowboyView.centerYAnchor),
-            cowboyImageView.leadingAnchor.constraint(equalTo: cowboyView.leadingAnchor, constant: 15),
-            cowboyImageView.heightAnchor.constraint(equalToConstant: 56),
-            cowboyImageView.widthAnchor.constraint(equalToConstant: 56),
+            firstTeamImageView.centerYAnchor.constraint(equalTo: cowboyView.centerYAnchor),
+            firstTeamImageView.leadingAnchor.constraint(equalTo: cowboyView.leadingAnchor, constant: 15),
+            firstTeamImageView.heightAnchor.constraint(equalToConstant: 56),
+            firstTeamImageView.widthAnchor.constraint(equalToConstant: 56),
             
-            cowboyLabel.centerYAnchor.constraint(equalTo: cowboyImageView.centerYAnchor),
-            cowboyLabel.leadingAnchor.constraint(equalTo: cowboyImageView.trailingAnchor, constant: 34),
+            firstTeamLabel.centerYAnchor.constraint(equalTo: firstTeamImageView.centerYAnchor),
+            firstTeamLabel.leadingAnchor.constraint(equalTo: firstTeamImageView.trailingAnchor, constant: 34),
             
             cowboyStack.centerYAnchor.constraint(equalTo: cowboyView.centerYAnchor),
             cowboyStack.trailingAnchor.constraint(equalTo: cowboyView.trailingAnchor, constant: -16),
@@ -203,31 +197,22 @@ class TeamViewController: UIViewController {
             slenderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             slenderView.heightAnchor.constraint(equalToConstant: 96),
             
-            slenderImageView.centerYAnchor.constraint(equalTo: slenderView.centerYAnchor),
-            slenderImageView.leadingAnchor.constraint(equalTo: slenderView.leadingAnchor, constant: 15),
-            slenderImageView.heightAnchor.constraint(equalToConstant: 56),
-            slenderImageView.widthAnchor.constraint(equalToConstant: 56),
+            secondImageView.centerYAnchor.constraint(equalTo: slenderView.centerYAnchor),
+            secondImageView.leadingAnchor.constraint(equalTo: slenderView.leadingAnchor, constant: 15),
+            secondImageView.heightAnchor.constraint(equalToConstant: 56),
+            secondImageView.widthAnchor.constraint(equalToConstant: 56),
             
-            slenderLabel.centerYAnchor.constraint(equalTo: slenderImageView.centerYAnchor),
-            slenderLabel.leadingAnchor.constraint(equalTo: slenderImageView.trailingAnchor, constant: 34),
+            secondTeamLabel.centerYAnchor.constraint(equalTo: secondImageView.centerYAnchor),
+            secondTeamLabel.leadingAnchor.constraint(equalTo: secondImageView.trailingAnchor, constant: 34),
             
-            slenderStack.centerYAnchor.constraint(equalTo: slenderImageView.centerYAnchor),
-            slenderStack.trailingAnchor.constraint(equalTo: slenderImageView.trailingAnchor, constant: -16),
+            slenderStack.centerYAnchor.constraint(equalTo: secondImageView.centerYAnchor),
+            slenderStack.trailingAnchor.constraint(equalTo: secondImageView.trailingAnchor, constant: -16),
             
             gamerReadyButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -46),
             gamerReadyButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
             gamerReadyButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
             gamerReadyButton.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
-        // MARK: - Navigation
-        
-//        let viewController = UIViewController()
-//        let navigationController = UINavigationController(rootViewController: viewController)
-//        navigationController.navigationBar.prefersLargeTitles = true
-//        navigationController.modalPresentationStyle = .fullScreen
-//        present(navigationController, animated: true, completion: nil)
-//
-        }
     }
+}
 

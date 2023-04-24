@@ -8,6 +8,9 @@
 import UIKit
 
 class GameResultViewController: UIViewController {
+    
+    var teams: (firstTeam: Team, secondTeam: Team)?
+    var isFirstTeam = false
 	
 	var backgroundImage: UIImageView = {
 		let image = UIImageView()
@@ -148,68 +151,6 @@ class GameResultViewController: UIViewController {
 		return label
 	}()
 	
-	
-	//MARK: - Third View
-	
-	
-	var thirdView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .white
-		view.layer.cornerRadius = 10
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
-	
-	var thirdViewTeamLogo: UIImageView = {
-		let image = UIImageView()
-		image.image = UIImage(named: "hobbie")
-		image.translatesAutoresizingMaskIntoConstraints = false
-		image.contentMode = .scaleAspectFit
-		image.clipsToBounds = true
-		return image
-	}()
-	
-	var thirdViewTeamLabel: UILabel = {
-		let label = UILabel()
-		label.text = "Красотки"
-		label.numberOfLines = 1
-		label.textColor = .black
-		label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		return label
-	}()
-	
-	let thirdViewVerticalStack: UIStackView = {
-		let subStack = UIStackView()
-		subStack.axis = .vertical
-		subStack.alignment = .center
-		subStack.distribution = .equalSpacing
-		subStack.spacing = 2.0
-		subStack.translatesAutoresizingMaskIntoConstraints = false
-		return subStack
-	}()
-	
-	var thirdViewPointLabel: UILabel = {
-		let label = UILabel()
-		label.text = "3"
-		label.numberOfLines = 1
-		label.textColor = .black
-		label.font = UIFont.systemFont(ofSize: 40, weight: .medium)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		return label
-	}()
-	
-	var thirdViewScoreLabel: UILabel = {
-		let label = UILabel()
-		label.text = "Очки"
-		label.numberOfLines = 1
-		label.textColor = .black
-		label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		return label
-	}()
-	
-	
 	var startOverButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setTitle("Начать сначала", for: .normal)
@@ -229,12 +170,24 @@ class GameResultViewController: UIViewController {
 		
 		setupHierarchy()
 		setConstrains()
+        setTeamData()
 	}
+    
+    func setTeamData() {
+        
+        guard let teams = teams else { return }
+        
+            firstViewTeamLabel.text = teams.firstTeam.name
+            firstViewTeamLogo.image = UIImage(named: (teams.firstTeam.avatar))
+            firstViewPointLabel.text = "\(teams.firstTeam.score)"
+
+            secondViewTeamLabel.text = teams.secondTeam.name
+            secondViewTeamLogo.image = UIImage(named: (teams.secondTeam.avatar))
+            secondViewPointLabel.text = "\(teams.secondTeam.score)"
+    }
 	
 	@objc func buttonTapped(_ sender: UIButton) {
 		AlertControllerProvider.shared.showAlert(on: self, title: "Сбросить игру?", message: "Вы хотите сбросить вашу игру и вернуться в главное меню?", navigationController: navigationController)
-        Scores.buttonTapsCount = 0
-        Scores.score = 0
         
 	}
 	
@@ -256,13 +209,6 @@ class GameResultViewController: UIViewController {
 		secondViewVerticalStack.addArrangedSubview(secondViewPointLabel)
 		secondViewVerticalStack.addArrangedSubview(secondViewScoreLabel)
 		
-		view.addSubview(thirdView)
-		view.addSubview(thirdViewTeamLogo)
-		view.addSubview(thirdViewTeamLabel)
-		view.addSubview(thirdViewVerticalStack)
-		thirdViewVerticalStack.addArrangedSubview(thirdViewPointLabel)
-		thirdViewVerticalStack.addArrangedSubview(thirdViewScoreLabel)
-		
 		view.addSubview(startOverButton)
 		
 	}
@@ -277,7 +223,7 @@ class GameResultViewController: UIViewController {
 			backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			
-			mainLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 31),
+			mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 31),
 			mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			
 			firstView.topAnchor.constraint(equalTo: mainLabel.topAnchor, constant: 76),
@@ -312,22 +258,6 @@ class GameResultViewController: UIViewController {
 			secondViewVerticalStack.centerYAnchor.constraint(equalTo: secondView.centerYAnchor),
 			secondViewVerticalStack.trailingAnchor.constraint(equalTo: secondView.trailingAnchor, constant: -16),
 			
-			thirdView.topAnchor.constraint(equalTo: secondView.topAnchor, constant: 120),
-			thirdView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-			thirdView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-			thirdView.heightAnchor.constraint(equalToConstant: 96),
-			
-			thirdViewTeamLogo.centerYAnchor.constraint(equalTo: thirdView.centerYAnchor),
-			thirdViewTeamLogo.leadingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: 15),
-			thirdViewTeamLogo.heightAnchor.constraint(equalToConstant: 56),
-			thirdViewTeamLogo.widthAnchor.constraint(equalToConstant: 56),
-			
-			thirdViewTeamLabel.centerYAnchor.constraint(equalTo: thirdView.centerYAnchor),
-			thirdViewTeamLabel.leadingAnchor.constraint(equalTo: thirdViewTeamLogo.trailingAnchor, constant: 34),
-			
-			thirdViewVerticalStack.centerYAnchor.constraint(equalTo: thirdView.centerYAnchor),
-			thirdViewVerticalStack.trailingAnchor.constraint(equalTo: thirdView.trailingAnchor, constant: -16),
-			
 			startOverButton.heightAnchor.constraint(equalToConstant: 60),
 			startOverButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
 			startOverButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
@@ -335,6 +265,5 @@ class GameResultViewController: UIViewController {
 			
 		])
 	}
-	
 }
 
