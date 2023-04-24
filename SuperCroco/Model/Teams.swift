@@ -10,13 +10,14 @@ import Foundation
 struct Team {
      let name: String
      let avatar: String
+     var score: Int
 
      static func getTeams() -> (firstTeam: Team, secondTeam: Team) {
          let teams = [
-             Team(name: "Стройняшки", avatar: "hobbie"),
-             Team(name: "Толстяки", avatar: "food"),
-             Team(name: "Панки", avatar: "persons"),
-             Team(name: "Звезды", avatar: "star")
+             Team(name: "Стройняшки", avatar: "hobbie", score: 0),
+             Team(name: "Толстяки", avatar: "food", score: 0),
+             Team(name: "Панки", avatar: "persons", score: 0),
+             Team(name: "Звезды", avatar: "star", score: 0)
          ]
 
          let shuffledTeams = teams.shuffled()

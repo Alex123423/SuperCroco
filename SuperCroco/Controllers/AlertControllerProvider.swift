@@ -20,9 +20,9 @@ class AlertControllerProvider {
 		
 		if actions.isEmpty {
 			let yesAction = UIAlertAction(title: "Да", style:.destructive, handler:  {_ in
-				let teamController = navigationController?.viewControllers.filter({$0 is TeamViewController}).first
+				let mainController = navigationController?.viewControllers.filter({$0 is MainViewController}).first
 				if let navigator = navigationController {
-					navigator.popToViewController(teamController!, animated: false)
+					navigator.popToViewController(mainController!, animated: false)
 				}
 				
 			})
