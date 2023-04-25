@@ -13,7 +13,9 @@ class GameViewController: UIViewController {
     var array: [String] = []
     var isFirstTeam = false
     var buttonTapsCount = 0
-    
+    var audio = AudioPlayer()
+
+
     let arrayConditions = [
         "Объясни с помощью слов",
         "Объясни с помощью жестов",
@@ -184,6 +186,9 @@ class GameViewController: UIViewController {
     
     @objc func correctButtonTapped(_ sender: UIButton) {
         isFirstTeam.toggle()
+  
+        
+        audio.playSound(sound: "correct")
         
         if buttonTapsCount == 3 {
             if isFirstTeam {
@@ -213,6 +218,7 @@ class GameViewController: UIViewController {
     
     @objc func wrongButtonTapped(_ sender: UIButton) {
         isFirstTeam.toggle()
+        audio.playSound(sound: "wrong")
         
         if buttonTapsCount == 3 {
             let gameResultVC = GameResultViewController()
@@ -231,7 +237,7 @@ class GameViewController: UIViewController {
     }
     
     @objc func resetButtonTapped(_ sender: UIButton) {
-        
+        timer?.invalidate()
         if let navigator = navigationController {
             navigator.pushViewController(MainViewController(), animated: false)
         }
@@ -295,11 +301,15 @@ class GameViewController: UIViewController {
     
     func timerStarting(){
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-                self.counter -= 1
-                self.timerLabel.text = "00:\(String(format: "%02d", self.counter))"
- 
-                if self.counter <= 0 {
-                    self.timer?.invalidate()
+            self.counter -= 1
+            self.timerLabel.text = "00:\(String(format: "%02d", self.counter))"
+            print(self.counter)
+            
+            if self.counter == 10 {
+                self.audio.playSound(sound: "10-1")
+                
+            } else if self.counter <= 0 {
+                self.timer?.invalidate()
             }
         })
     }
