@@ -26,7 +26,7 @@ class GameViewController: UIViewController {
         "Объясняй сексуально"
     ]
     
-    var timer: Timer?
+    var timer = Timer()
     var counter = 60
 
     let verStack: UIStackView = {
@@ -166,7 +166,6 @@ class GameViewController: UIViewController {
 		
 		navigationItem.setHidesBackButton(true, animated: true)
         
-        timerStarting()
         setupHierarchy()
         setConstrains()
         
@@ -180,15 +179,21 @@ class GameViewController: UIViewController {
         
         wordsLabel.text = array.randomElement()
         conditionsLabel.text = arrayConditions.randomElement()
+        createTimer()
         counter = 60
         timerLabel.text = "01:00"
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        timer.invalidate()
+    }
+    
     @objc func correctButtonTapped(_ sender: UIButton) {
         isFirstTeam.toggle()
-  
-        
         audio.playSound(sound: "correct")
+        timer.invalidate()
         
         if buttonTapsCount == 3 {
             if isFirstTeam {
@@ -208,7 +213,6 @@ class GameViewController: UIViewController {
             }
             if let navigator = navigationController {
                 let correctVC = CorrectViewController()
-                counter = 60
                 correctVC.teams = teams
                 correctVC.isFirstTeam = isFirstTeam
                 navigator.pushViewController(correctVC, animated: false)
@@ -219,6 +223,7 @@ class GameViewController: UIViewController {
     @objc func wrongButtonTapped(_ sender: UIButton) {
         isFirstTeam.toggle()
         audio.playSound(sound: "wrong")
+        timer.invalidate()
         
         if buttonTapsCount == 3 {
             let gameResultVC = GameResultViewController()
@@ -228,7 +233,6 @@ class GameViewController: UIViewController {
             buttonTapsCount += 1
             if let navigator = navigationController {
                 let wrongVC = WrongViewController()
-                counter = 60
                 wrongVC.teams = teams
                 wrongVC.isFirstTeam = isFirstTeam
                 navigator.pushViewController(wrongVC, animated: false)
@@ -237,10 +241,10 @@ class GameViewController: UIViewController {
     }
     
     @objc func resetButtonTapped(_ sender: UIButton) {
-        timer?.invalidate()
-        if let navigator = navigationController {
-            navigator.pushViewController(MainViewController(), animated: false)
-        }
+        timer.invalidate()
+        
+        AlertControllerProvider.shared.showAlert(on: self, title: "Сбросить игру?", message: "Вы хотите сбросить вашу игру и вернуться в главное меню?", navigationController: navigationController)
+          
     }
     
     func setupHierarchy(){
@@ -299,23 +303,57 @@ class GameViewController: UIViewController {
         ])
     }
     
-    func timerStarting(){
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-            self.counter -= 1
-            self.timerLabel.text = "00:\(String(format: "%02d", self.counter))"
-            print(self.counter)
-            
-            if self.counter == 10 {
-                self.audio.playSound(sound: "10-1")
-                
-            } else if self.counter <= 0 {
-                self.timer?.invalidate()
-            }
-        })
+//    func timerStarting(){
+//        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
+//            self.counter -= 1
+//            self.timerLabel.text = "00:\(String(format: "%02d", self.counter))"
+//            print(self.counter)
+//
+//            if self.counter == 10 {
+//                self.audio.playSound(sound: "10-1")
+//
+//            } else if self.counter == 0 {
+//                self.timer.invalidate()
+//            }
+//        })
+//    }
+    
+//    func stopTimer() {
+//        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+//            if self.timerLabel.text != "00:00" {
+//               // self.timerLabel.text -= 0.01
+//            } else {
+//               // self.present(alertTimeIsOut, animated: true)
+//                timer.invalidate()
+//            }
+//        }
+//    }
+    
+    private func createTimer() {
+        timerLabel.text = "01:00"
+        counter = 60
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+
+    @objc
+    private func timerAction() {
+        counter -= 1
+        print(counter)
+        let totalTimeforGame = timeStringFor(seconds: counter)
+        timerLabel.text = "\(totalTimeforGame)"
+        if counter == 0 {
+            timer.invalidate()
+            let wrongVC = WrongViewController()
+            show(wrongVC, sender: self)
+        }
+    }
+
+    func timeStringFor(seconds : Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.second, .minute, .hour]
+        formatter.zeroFormattingBehavior = .pad
+        let output = formatter.string(from: TimeInterval(seconds))!
+        return seconds < 3600 ? output.substring(from: output.range(of: ":")!.upperBound) : output
     }
 }
-
-
-
-
-

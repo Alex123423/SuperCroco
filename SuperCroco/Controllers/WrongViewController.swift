@@ -10,6 +10,7 @@ class WrongViewController: UIViewController {
     
     var teams: (firstTeam: Team, secondTeam: Team)?
     var isFirstTeam = false
+    var gameVC = GameViewController()
     
     lazy var imageBackground: UIImageView = {
         let image = UIImageView()

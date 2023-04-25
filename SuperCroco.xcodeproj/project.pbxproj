@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1708AF9529F2E6F200BB7B64 /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1708AF9429F2E6F200BB7B64 /* Teams.swift */; };
 		17092C8829F6A0900037075C /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17092C8729F6A0900037075C /* Categories.swift */; };
+		17092C8A29F84EFC0037075C /* cancelGameAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17092C8929F84EFC0037075C /* cancelGameAlert.swift */; };
 		170A1B4229F05ADB001861ED /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170A1B4129F05ADB001861ED /* RulesViewController.swift */; };
 		17EA310329F03A1700A043B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EA310229F03A1700A043B8 /* AppDelegate.swift */; };
 		17EA310529F03A1700A043B8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EA310429F03A1700A043B8 /* SceneDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		1708AF9429F2E6F200BB7B64 /* Teams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
 		17092C8729F6A0900037075C /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		17092C8929F84EFC0037075C /* cancelGameAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cancelGameAlert.swift; sourceTree = "<group>"; };
 		170A1B4129F05ADB001861ED /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		17EA30FF29F03A1700A043B8 /* SuperCroco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperCroco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EA310229F03A1700A043B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				5BCF8B4829F04DA000ACB9E1 /* GameResultViewController.swift */,
 				170A1B4129F05ADB001861ED /* RulesViewController.swift */,
 				5BCF8B4C29F1393200ACB9E1 /* AlertControllerProvider.swift */,
+				17092C8929F84EFC0037075C /* cancelGameAlert.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				5BCF8B4929F04DA000ACB9E1 /* GameResultViewController.swift in Sources */,
 				95B62F4F29F162D200EA7088 /* WrongViewController.swift in Sources */,
 				17EA310329F03A1700A043B8 /* AppDelegate.swift in Sources */,
+				17092C8A29F84EFC0037075C /* cancelGameAlert.swift in Sources */,
 				1708AF9529F2E6F200BB7B64 /* Teams.swift in Sources */,
 				95233EB029F7DBEE00126CE8 /* AudioPlayer.swift in Sources */,
 				170A1B4229F05ADB001861ED /* RulesViewController.swift in Sources */,
